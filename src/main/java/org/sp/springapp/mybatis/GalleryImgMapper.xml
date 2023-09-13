@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GalleryImg">
+
+	<!-- dto안에 다른 dto가 포함되어 있다면, 해당 dto의 레퍼런스 변수명을 통해 컬럼명(property)에 접근해야 한다. -->
+	<insert id="insert" parameterType="GalleryImg">
+		insert into gallery_img(gallery_img_idx, gallery_idx, filename)
+		values(seq_gallery_img.nextval, #{gallery.gallery_idx}, #{filename})
+	</insert>
+	
+	<!-- 부모의 fk를 이용하여 레코드 가져오기 -->
+	<select id="selectByGalleryIdx" parameterType="int" resultType="GalleryImg">
+		select * from gallery_img where gallery_idx=#{gallery_idx}
+	</select>
+	
+	<!-- 부모에 딸려있는 레코드만 삭제! -->
+	<delete id="deleteByGalleryIdx" parameterType="int">
+		delete gallery_img where gallery_idx=#{gallery_idx}
+	</delete>
+	
+	<!-- 부모의 fk를 조건으로 하는 레코드 수정. update문 -->
+
+</mapper>
